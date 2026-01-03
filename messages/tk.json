@@ -1,0 +1,29 @@
+{
+  "Header": {
+    "projects": "taslamalar",
+    "about": "biz barada"
+  },
+  "Main": {
+    "about": "biz barada",
+    "description": "Size iň gowy arzuwlarymyzy aýdýarys. Öňdebaryjy grafik dizaýn agentligi hökmünde biz pikirleri ajaýyp wizual tejribelere öwürýäris. Biziň höwesimiz diňe bir owadan görünmek bilen çäklenmän, eýsem netije berýän dizaýnlary döretmekdir. Her piksel, her egri, her reňk siziň özboluşly hekaýaňyzy gürrüň bermek we tomaşaçylaryňyz bilen aragatnaşyk saklamak üçin üns bilen döredildi.",
+    "month": "aý",
+    "projects": "taslamalar"
+  },
+  "Footer": {
+    "address": "Salgy",
+    "phone": "Telefon",
+    "email": "E-poçta",
+    "about": "Biz barada",
+    "partnership": "Hyzmatdaşlyk",
+    "job": "Işe girmek üçin arza"
+  },
+  "About": {
+    "title": "biz işgärler taýýarlaýarys",
+    "our-team": "biziň toparymyz",
+    "our-projects": "soňky taslamalarymyz"
+  },
+  "Partnership": {
+    "title": "hyzmatdaşlyk",
+    "description": "Çäräňiz üçin maglumat goldawy boýunça hyzmatdaşlyk etmek üçin, partners@mail.com salgysyna e-poçta iberiň. Size özara peýdaly ylalaşyk hödürläp bilmegimiz üçin çäräňiz barada mümkin boldugyça köp maglumat beriň. Çärä we onuň guramaçylaryna üns çekmäge, şeýle hem olara gyzyklanma döretmäge ýa-da saklamaga gönükdirilen maglumat ýaýratmak hyzmatlary täjirçilik esasynda hödürlenýär. Biz teklibiňizi gözden geçirip, siziň bilen habarlaşarys. Soraglaryňyz bolsa, +993 belgisine jaň ediň."
+  }
+}

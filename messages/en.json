@@ -1,0 +1,53 @@
+{
+  "Header": {
+    "projects": "projects",
+    "about": "about us"
+  },
+  "Main": {
+    "about": "about us",
+    "description": "\"We want the best for you. As a leading graphic design agency, we transform ideas into stunning visual experiences. Our passion lies in creating designs that not only look beautiful but also drive results. Every pixel, every curve, every color is carefully crafted to tell your unique story and connect with your audience.",
+    "month": "months",
+    "projects": "projects"
+  },
+  "Footer": {
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email",
+    "about": "About us",
+    "partnership": "Partnership",
+    "job": "Job application"
+  },
+  "About": {
+    "title": "we make staff",
+    "our-team": "our team",
+    "our-projects": "our recent projects"
+  },
+  "Partnership": {
+    "title": "partnership",
+    "description": "For cooperation in information support of your event, please send a letter to partners@mail.com Please give us as much information about your event as possible so we can offer you a mutually beneficial deal. Services for the dissemination of information aimed at attracting attention to the event, its organizers, the formation or maintenance of interest in them, are provided on a commercial basis. We will definitely consider your proposal and get back to you. If you have any questions, please call +993"
+  },
+  "Jobs": {
+    "title": "apply today",
+    "description": "Send your resume to internship@mail.net or fill out the form below:",
+    "photo": "Upload your 3x4 photo*",
+    "attach": "Attach photo",
+    "full-name": "Full name*",
+    "email": "Email*",
+    "phone": "Contract phone number*",
+    "bday": "Date of birth*",
+    "resident": "City of residence*",
+    "education": "Education*",
+    "secondary": "Secondary",
+    "higher": "Higher",
+    "profession": "Profession*",
+    "graphic-designer": "Graphic Designer",
+    "illustrator1": "Illustrator",
+    "photographer": "Photographer",
+    "animator": "Animator",
+    "visualizer": "Visualizer",
+    "ui/ux": "UI/UX",
+    "3d-model-maker": "3D Model Maker",
+    "knowledge": "Knowledge of programs*",
+    "illustrator": "Illustrator"
+  }
+}
