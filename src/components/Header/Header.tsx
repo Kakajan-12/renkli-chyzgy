@@ -14,7 +14,7 @@ export default function Header() {
     const menuRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
 
-    const languages = ["tk", "ru", "en"];
+    // const languages = ["tk", "ru", "en"];
 
     const handleLanguageChange = (newLocale: string) => {
         const newPathname = `/${newLocale}${pathname.replace(`/${locale}`, '') || ''}`;
@@ -68,21 +68,21 @@ export default function Header() {
                             {t('about')}
                         </Link>
 
-                        <div className="flex items-center space-x-2">
-                            {languages.map((lang) => (
-                                <button
-                                    key={lang}
-                                    onClick={() => handleLanguageChange(lang)}
-                                    className={`text-sm font-medium hover:opacity-80 transition uppercase px-2 py-1 rounded text-white ${
-                                        locale === lang
-                                            ? "bg-white/20 font-bold"
-                                            : ""
-                                    }`}
-                                >
-                                    {lang}
-                                </button>
-                            ))}
-                        </div>
+                        {/*<div className="flex items-center space-x-2">*/}
+                        {/*    {languages.map((lang) => (*/}
+                        {/*        <button*/}
+                        {/*            key={lang}*/}
+                        {/*            onClick={() => handleLanguageChange(lang)}*/}
+                        {/*            className={`text-sm font-medium hover:opacity-80 transition uppercase px-2 py-1 rounded text-white ${*/}
+                        {/*                locale === lang*/}
+                        {/*                    ? "bg-white/20 font-bold"*/}
+                        {/*                    : ""*/}
+                        {/*            }`}*/}
+                        {/*        >*/}
+                        {/*            {lang}*/}
+                        {/*        </button>*/}
+                        {/*    ))}*/}
+                        {/*</div>*/}
                     </div>
                 </div>
 
@@ -136,23 +136,23 @@ export default function Header() {
                                     {t('about')}
                                 </Link>
 
-                                <div className="pt-4 border-gray-700">
-                                    <div className="flex justify-center space-x-2">
-                                        {languages.map((lang) => (
-                                            <button
-                                                key={lang}
-                                                onClick={() => handleLanguageChange(lang)}
-                                                className={`text-sm font-medium hover:opacity-80 transition uppercase px-2 py-2 active:scale-95 text-white ${
-                                                    locale === lang
-                                                        ? "font-bold"
-                                                        : ""
-                                                }`}
-                                            >
-                                                {lang}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
+                                {/*<div className="pt-4 border-gray-700">*/}
+                                {/*    <div className="flex justify-center space-x-2">*/}
+                                {/*        {languages.map((lang) => (*/}
+                                {/*            <button*/}
+                                {/*                key={lang}*/}
+                                {/*                onClick={() => handleLanguageChange(lang)}*/}
+                                {/*                className={`text-sm font-medium hover:opacity-80 transition uppercase px-2 py-2 active:scale-95 text-white ${*/}
+                                {/*                    locale === lang*/}
+                                {/*                        ? "font-bold"*/}
+                                {/*                        : ""*/}
+                                {/*                }`}*/}
+                                {/*            >*/}
+                                {/*                {lang}*/}
+                                {/*            </button>*/}
+                                {/*        ))}*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
                             </div>
                         </div>
                     )}
