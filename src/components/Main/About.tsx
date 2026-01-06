@@ -45,8 +45,6 @@ export default function MainAbout() {
         fetchData();
     }, []);
 
-
-
     if (loading) return <p className="text-center py-12">Loading gallery...</p>;
     if (images.length === 0) return <p className="text-center py-12">No images available</p>;
 

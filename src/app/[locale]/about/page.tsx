@@ -3,24 +3,60 @@
 import {useTranslations} from "next-intl";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Autoplay, EffectCreative } from 'swiper/modules';
+import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/effect-creative';
+import {useEffect, useState} from "react";
+import axios from "axios";
+import Link from "next/link";
+
+interface Project {
+    id: number;
+    image: string;
+    title: string;
+    text: string;
+    category_id: number;
+    category: string;
+}
+
+interface Counter {
+    id: number;
+    years: number;
+    projects: number;
+}
 
 export default function About() {
     const t = useTranslations('About')
     const m = useTranslations('Main')
+    const [projects, setProjects] = useState<Project[]>([]);
+    const [counter, setCounter] = useState<Counter | null>(null);
+    const [loading, setLoading] = useState(true);
+    const lastProjects = [...projects]
+        .sort((a, b) => b.id - a.id)
+        .slice(0, 4);
 
-    const images = [
-        { id: 1, src: '/about/design1.jpg', alt: 'Brand Identity Design' },
-        { id: 2, src: '/about/design2.jpg', alt: 'Web Design Project' },
-        { id: 3, src: '/about/design3.jpg', alt: 'Mobile App UI' },
-        { id: 4, src: '/about/design4.jpg', alt: 'Marketing Materials' },
-        { id: 5, src: '/about/design5.jpg', alt: 'Packaging Design' },
-        { id: 6, src: '/about/design6.jpg', alt: 'Social Media Graphics' },
-    ];
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const [projectsRes, counterRes] = await Promise.all([
+                    axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/projects`),
+                    axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/counter`)
+                ]);
+
+                setProjects(projectsRes.data);
+                setCounter(counterRes.data[0]);
+            } catch (err) {
+                console.error('Error fetching data', err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    if (loading) return <p className="text-center py-12">Loading...</p>;
+    if (projects.length === 0) return <p className="text-center py-12">No data available</p>;
 
     return (
         <div className="pt-20 sm:pt-32 about-bg-color">
@@ -64,123 +100,67 @@ export default function About() {
                 </div>
                 <div className="flex flex-col md:flex-row md:justify-between space-y-6 md:space-y-0 md:space-x-6 pt-20">
                     <div className="text-white text-4xl md:text-6xl text-wrap max-w-[270px]">{t('our-projects')}</div>
+                    {counter && (
                     <div className="flex justify-end space-x-2">
                         <div className="flex items-end">
-                            <p className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white">7</p>
-                            <p className="text-md md:text-lg lg:text-xl text-white">{m('month')}</p>
+                            <p className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white">{counter.years}</p>
+                            <p className="text-md md:text-lg lg:text-xl text-white">{m('years')}</p>
                         </div>
                         <div className="flex items-end">
-                            <p className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white">777</p>
+                            <p className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white"> {counter.projects}</p>
                             <p className="text-md md:text-lg lg:text-xl text-white">{m('projects')}</p>
                         </div>
                     </div>
+                    )}
                 </div>
-                <div className="">
+                <div className="py-8">
                     <Swiper
-                        modules={[Navigation, Autoplay, EffectCreative]}
+                        modules={[Autoplay]}
                         spaceBetween={20}
                         slidesPerView={1}
-                        navigation={{
-                            nextEl: '.about-swiper-next',
-                            prevEl: '.about-swiper-prev',
-                        }}
-                        pagination={{
-                            clickable: true,
-                            el: '.about-swiper-pagination',
-                        }}
                         autoplay={{
                             delay: 4000,
                             disableOnInteraction: false,
                         }}
-                        effect="creative"
-                        creativeEffect={{
-                            prev: {
-                                shadow: true,
-                                translate: ['-120%', 0, -500],
-                            },
-                            next: {
-                                shadow: true,
-                                translate: ['120%', 0, -500],
-                            },
-                        }}
-                        loop={true}
+                        loop={lastProjects.length > 3}
                         breakpoints={{
-                            640: {
-                                slidesPerView: 1,
-                                spaceBetween: 20,
-                            },
-                            768: {
-                                slidesPerView: 2,
-                                spaceBetween: 30,
-                            },
-                            1024: {
-                                slidesPerView: 3,
-                                spaceBetween: 30,
-                            },
+                            640: { slidesPerView: 1 },
+                            768: { slidesPerView: 2 },
+                            1024: { slidesPerView: 3 },
                         }}
                         className="pb-12"
                     >
-                        {images.map((image) => (
-                            <SwiperSlide key={image.id}>
-                                <div className="relative overflow-hidden rounded-2xl group cursor-pointer">
-                                    <div className="relative h-72 md:h-80">
-                                        <Image
-                                            src={image.src}
-                                            alt={image.alt}
-                                            fill
-                                            className="object-cover group-hover:scale-110 transition-transform duration-700"
-                                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                        />
-                                        <div
-                                            className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        {lastProjects.map((project) => (
+                            <SwiperSlide key={project.id}>
+                                <Link href={`/projects/${project.id}`} className="block">
+                                    <div className="relative overflow-hidden rounded-lg group cursor-pointer">
+                                        <div className="relative h-72 md:h-80">
+                                            <Image
+                                                src={`${process.env.NEXT_PUBLIC_API_URL}/${project.image.replace('\\', '/')}`}
+                                                alt={project.title}
+                                                fill
+                                                unoptimized
+                                                className="object-cover group-hover:scale-110 transition-transform duration-700"
+                                                sizes="(max-width: 768px) 100vw,
+                                   (max-width: 1200px) 50vw,
+                                   33vw"
+                                            />
 
-                                        {/* Наложение при наведении */}
-                                        <div
-                                            className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
-                                                <span className="text-white font-medium">View Project</span>
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                                            <div className="absolute inset-0 flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                                <div
+                                                    className="text-lg font-medium text-white"
+                                                    dangerouslySetInnerHTML={{ __html: project.title }}
+                                                />
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </Link>
                             </SwiperSlide>
                         ))}
-
-                        {/* Кастомные стрелки навигации */}
-                        <div
-                            className="about-swiper-next absolute top-1/2 -translate-y-1/2 right-4 z-10 w-10 h-10 bg-white/80 hover:bg-white rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all">
-                            <svg className="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"/>
-                            </svg>
-                        </div>
-                        <div
-                            className="about-swiper-prev absolute top-1/2 -translate-y-1/2 left-4 z-10 w-10 h-10 bg-white/80 hover:bg-white rounded-full shadow-lg flex items-center justify-center cursor-pointer transition-all">
-                            <svg className="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"/>
-                            </svg>
-                        </div>
-
-                        {/* Кастомная пагинация */}
-                        <div className="about-swiper-pagination flex justify-center space-x-2 mt-6"></div>
                     </Swiper>
 
-                    {/* Стили для пагинации */}
-                    <style jsx global>{`
-                        .about-swiper-pagination .swiper-pagination-bullet {
-                            background: #9ca3af;
-                            opacity: 0.5;
-                            width: 8px;
-                            height: 8px;
-                            transition: all 0.3s;
-                        }
-
-                        .about-swiper-pagination .swiper-pagination-bullet-active {
-                            background: #3b82f6;
-                            opacity: 1;
-                            width: 24px;
-                            border-radius: 4px;
-                        }
-                    `}</style>
                 </div>
             </div>
         </div>
